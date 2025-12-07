@@ -38,6 +38,17 @@ class ResourceManager
     
     }
 
+    ResourceManager(ResourceManager&& other) noexcept : R(other.R) { other.R = nullptr; }
+
+    ResourceManager& operator=(ResourceManager&& other) noexcept
+    {
+        if (this != &other) {
+            delete R;
+            R       = other.R;
+            other.R = nullptr;
+        }
+        return *this;
+    }
 
 
     double get()
